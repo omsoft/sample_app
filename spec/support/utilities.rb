@@ -1,9 +1,2 @@
-
-def meta_title(base_title, page_title)
-  full_title = base_title
-  unless page_title.blank?
-    full_title += " | #{page_title}"
-  end
-
-  full_title
-end
+# This file, and all files inside the support directory, is included automatically
+# on every test spec
