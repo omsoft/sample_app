@@ -1,7 +1,11 @@
 SampleApp::Application.routes.draw do
-  get "static_pages/home"
-  get "static_pages/help"
-  get "static_pages/about_us"
+  
+  # We don't use "match" here, because we only want to allow GET requests
+  get '/help',    to: 'static_pages#help'
+  get '/about_us',   to: 'static_pages#about_us'
+  get '/contact', to: 'static_pages#contact'
+  
+  match '/signup', to: 'users#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

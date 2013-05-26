@@ -1,42 +1,59 @@
 require 'spec_helper'
 
 describe 'StaticPages' do
+  # Avoid code duplication by using this line
+  # Instead of writing "page.should ..." wi simply write "should .."
+  subject { page }
+  
+  # We create a global variable
   let(:base_title) { "Ruby on Rails Tutorial Sample App" }
   
+  # The Home Page section has been boosted with some great code optimizations!
   describe 'Home Page' do
-    it "has the H1 content 'Sample App'" do
-      visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Sample App')
-    end
+    before { visit root_path }
     
-    it 'has the right meta title' do
-      visit '/static_pages/home'
-      page.should have_selector('title', :text => "#{base_title}")
-    end
+    it { should have_selector('h1', text: 'Sample App') }
+    it { should have_selector('title', text: meta_title(base_title, '')) }
   end
+  
+  # The following tests use standard RSpec code... there's a lot of duplication in here!
   
   describe 'Help Page' do
     it "has the content 'Help'" do
-      visit '/static_pages/help'
-      page.should have_selector('h1', :text => 'Help')
+      visit help_path
+      should have_selector('h1', text: 'Help')
     end
     
     it 'has the right meta title' do
-      visit '/static_pages/help'
-      page.should have_selector('title', :text => "#{base_title} | Help")
+      visit help_path
+      should have_selector('title', text: meta_title(base_title, 'Help'))
     end
   end
   
   describe 'About Us Page' do
     it "has the content 'About Us'" do
-      visit '/static_pages/about_us'
-      page.should have_selector('h1', :text => 'About Us')
+      visit about_us_path
+      should have_selector('h1', text: 'About Us')
     end
     
     it 'has the right meta title' do
-      visit '/static_pages/about_us'
-      page.should have_selector('title', :text => "#{base_title} | About Us")
+      visit about_us_path
+      should have_selector('title', text: meta_title(base_title, 'About Us'))
     end
+  end
+  
+  describe 'Contact Page' do
+    
+    it 'has the H1 "Contact"' do
+      visit contact_path
+      should have_selector('h1', text: 'Contact')
+    end
+    
+    it 'has the right meta title' do
+      visit contact_path
+      should have_selector('title', text: meta_title(base_title, 'Contact'))
+    end
+    
   end
   
 end
